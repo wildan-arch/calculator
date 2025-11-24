@@ -77,3 +77,8 @@ document.addEventListener("keydown", function (event) {
     display.value = display.value.slice(0, -1);
   }
 });
+
+// Fungsi untuk mengoreksi entri terakhir
+function correctLastEntry() {
+  display.value = display.value.slice(0, -1);
+}

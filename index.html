@@ -8,8 +8,10 @@
   </head>
   <body>
     <div class="calculator">
-      <input type="text" id="display" disabled placeholder="masukkan angka..." />
+      <input type="text" id="display" disabled placeholder="enter number..." />
       <div class="buttons">
+        <button class="reset" onclick="clearDisplay()">C</button>
+        <button class="correct" onclick="correctLastEntry()">Correct</button>
         <button onclick="appendToDisplay('7')">7</button>
         <button onclick="appendToDisplay('8')">8</button>
         <button onclick="appendToDisplay('9')">9</button>
@@ -26,7 +28,6 @@
         <button onclick="appendToDisplay('.')">.</button>
         <button class="equals" onclick="calculateResult()">=</button>
         <button class="operator" onclick="appendToDisplay('+')">+</button>
-        <button class="reset" onclick="clearDisplay()">C</button>
       </div>
     </div>
     <script src="script.js"></script>
