@@ -1,84 +1,88 @@
-// Mendapatkan elemen display
-const display = document.getElementById("display");
+let currentInput = "0";
+let previousInput = "";
+let operator = null;
+let shouldResetScreen = false;
+// panggil display elements
+const currentDisplay = document.getElementById("current-operand");
+const previousDisplay = document.getElementById("previous-operand");
 
-// Variabel untuk melacak status kalkulator
-let isResultDisplayed = false;
-
-// Fungsi untuk menambahkan nilai ke display
-function appendToDisplay(value) {
-  // Jika hasil sedang ditampilkan dan pengguna menekan angka, reset display
-  if (isResultDisplayed && !isOperator(value)) {
-    display.value = "";
-    isResultDisplayed = false;
+// Fungsi menambah angka ke layar
+function appendNumber(number) {
+  if (currentInput === "0" || shouldResetScreen) {
+    currentInput = number;
+    shouldResetScreen = false;
+  } else {
+    // Mencegah titik desimal ganda
+    if (number === "." && currentInput.includes(".")) return;
+    currentInput += number;
   }
-
-  // Jika hasil sedang ditampilkan dan pengguna menekan operator, lanjutkan dengan hasil
-  if (isResultDisplayed && isOperator(value)) {
-    isResultDisplayed = false;
-  }
-
-  // Tambahkan nilai ke display
-  display.value += value;
+  updateDisplay();
 }
 
-// Fungsi untuk memeriksa apakah nilai adalah operator
-function isOperator(value) {
-  return ["+", "-", "*", "/"].includes(value);
+// Fungsi memilih operator (+, -, *, /)
+function appendOperator(op) {
+  if (operator !== null) compute();
+  previousInput = currentInput;
+  operator = op;
+  shouldResetScreen = true;
+  updateDisplay();
 }
-
-// Fungsi untuk mengosongkan display
+// Fungsi menghapus semua (AC)
 function clearDisplay() {
-  display.value = "";
-  isResultDisplayed = false;
+  currentInput = "0";
+  previousInput = "";
+  operator = null;
+  updateDisplay();
 }
 
-// Fungsi untuk menghitung hasil
-function calculateResult() {
-  try {
-    // Evaluasi ekspresi matematika
-    const result = eval(display.value);
-
-    // Tampilkan hasil
-    display.value = result;
-    isResultDisplayed = true;
-  } catch (error) {
-    // Jika terjadi error, tampilkan pesan error
-    display.value = "Error";
-    isResultDisplayed = true;
+// Fungsi menghapus satu karakter terakhir (Backspace)
+function deleteNumber() {
+  if (currentInput.length > 1) {
+    currentInput = currentInput.slice(0, -1);
+  } else {
+    currentInput = "0";
   }
+  updateDisplay();
 }
 
-// Event listener untuk keyboard
-document.addEventListener("keydown", function (event) {
-  const key = event.key;
+// Fungsi menghitung hasil (=)
+function compute() {
+  let computation;
+  const prev = parseFloat(previousInput);
+  const current = parseFloat(currentInput);
 
-  // Tombol angka
-  if (key >= "0" && key <= "9") {
-    appendToDisplay(key);
-  }
-  // Tombol operator
-  else if (["+", "-", "*", "/"].includes(key)) {
-    appendToDisplay(key);
-  }
-  // Tombol titik desimal
-  else if (key === ".") {
-    appendToDisplay(".");
-  }
-  // Tombol enter atau sama dengan
-  else if (key === "Enter" || key === "=") {
-    calculateResult();
-  }
-  // Tombol escape atau C untuk clear
-  else if (key === "Escape" || key === "c" || key === "C") {
-    clearDisplay();
-  }
-  // Tombol backspace
-  else if (key === "Backspace") {
-    display.value = display.value.slice(0, -1);
-  }
-});
+  if (isNaN(prev) || isNaN(current)) return;
 
-// Fungsi untuk mengoreksi entri terakhir
-function correctLastEntry() {
-  display.value = display.value.slice(0, -1);
+  switch (operator) {
+    case "+":
+      computation = prev + current;
+      break;
+    case "-":
+      computation = prev - current;
+      break;
+    case "*":
+      computation = prev * current;
+      break;
+    case "/":
+      computation = current === 0 ? "Error" : prev / current;
+      break;
+    default:
+      return;
+  }
+
+  currentInput = computation.toString();
+  operator = null;
+  previousInput = "";
+  shouldResetScreen = true;
+  updateDisplay();
+}
+
+// Fungsi memperbarui tampilan layar
+function updateDisplay() {
+  currentDisplay.innerText = currentInput;
+  if (operator != null) {
+    previousDisplay.innerText = `${previousInput} ${operator}`;
+  } else {
+    previousDisplay.innerText = "";
+  }
 }

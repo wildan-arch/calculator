@@ -1,66 +1,98 @@
 body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background-color: lavender;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #e0e5ec;
+  /* Warna background halaman soft */
+}
+.output-calculator {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 Kolom */
+  grid-gap: 15px;
+  padding: 25px;
+  border-radius: 30px;
+  background-color: #e0e5ec;
+  /* Efek Neumorphism (timbul halus) */
+  box-shadow: 9px 9px 16px rgb(163, 177, 198, 0.6), -9px -9px 16px rgba(255, 255, 255, 0.5);
+  max-width: 350px;
+  width: 100%;
+}
+#previous-operand {
+  font-size: 1rem;
+  color: #888;
+  min-height: 1.2rem;
+}
+.display {
+  grid-column: 1 / -1; /* Span ke seluruh lebar */
+  background-color: #e0e5ec;
+  min-height: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; /* Rata Kanan */
+  justify-content: center;
+  padding: 20px;
+  word-wrap: break-word;
+  word-break: break-all;
+  border-radius: 15px;
+  margin-bottom: 20px;
+  /* Efek cekung (Inset) untuk layar */
+  box-shadow: inset 6px 6px 10px 0 rgba(163, 177, 198, 0.7), inset -6px -6px 10px 0 rgba(255, 255, 255, 0.8);
+}
+.current-operand {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #333;
 }
 
-.calculator {
-  width: 300px;
-  margin: 50px auto;
-  padding: 20px;
-  border: 2px solid #ccc;
-  border-radius: 10px;
-  background-color: #f9f9f9;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-.calculator input[type="text"] {
-  width: 100%;
-  height: 40px;
-  margin-bottom: 10px;
-  padding: 5px;
-  font-size: 36px;
-  text-align: right;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
 .buttons {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-gap: 15px;
+  grid-gap: 20px;
 }
 button {
-  height: 50px;
-  font-size: 24px;
-  border: none;
-  border-radius: 5px;
-  background-color: #2ecc71;
-  color: white;
   cursor: pointer;
-}
-.correct {
-  background-color: #f39c12;
-  color: white;
-  grid-column: span 1;
+  font-size: 1.25rem;
+  border: none;
+  outline: none;
+  background-color: #e0e5ec;
+  padding: 20px;
+  border-radius: 50%; /* Tombol bulat */
+  color: #555;
+  font-weight: bold;
+  /* Efek timbul untuk tombol */
+  box-shadow: 6px 6px 10px 0 rgba(163, 177, 198, 0.7), -6px -6px 10px 0 rgba(255, 255, 255, 0.8);
+  transition: all 0.1s ease;
 }
 
-.calculator button:hover {
-  background-color: #39793c;
+button:active {
+  /* Efek saat ditekan */
+  box-shadow: inset 4px 4px 8px 0 rgba(163, 177, 198, 0.7), inset -4px -4px 8px 0 rgba(255, 255, 255, 0.8);
+  transform: scale(0.98);
 }
-.calculator button.operator {
-  background-color: #f39c12;
+/* Warna Khusus Operator */
+.operator-btn {
+  color: #ff9500; /* Warna Oranye khas iOS */
 }
-.calculator button.operator:hover {
-  background-color: #c97405;
+/* Warna Khusus Tombol Clear/Hapus */
+.function-btn {
+  color: #ff3b30; /* Warna Merah soft */
 }
-.calculator button.reset {
-  background-color: #e9301c;
-  grid-column: span 3;
+/* Tombol Sama Dengan (=) */
+.equals-btn {
+  background-color: #ff9500;
+  color: white;
+  border-radius: 50%;
+  /* Shadow: Sisi terang (kuning) & Sisi gelap (oranye tua) */
+  box-shadow: -6px -6px 10px rgba(255, 200, 100, 0.5), /* Cahaya pantulan */ 6px 6px 10px rgba(200, 100, 0, 0.4); /* Bayangan oranye tua, BUKAN hitam */
 }
-.calculator button.reset:hover {
-  background-color: #8f1c0d;
+.equals-btn:active {
+  background-color: #e08400;
 }
-.calculator button.equals {
-  background-color: #3498db;
-}
-.calculator button.equals:hover {
-  background-color: #21618c;
+/* Tombol yang butuh 2 kolom lebar */
+.span-two {
+  grid-column: span 2;
+  width: 100%;
+  border-radius: 50px; /* Lonjong */
 }
