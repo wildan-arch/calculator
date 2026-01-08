@@ -7,15 +7,16 @@ body {
   background-color: #e0e5ec;
   /* Warna background halaman soft */
 }
-.output-calculator {
+.calculator {
   display: grid;
   grid-template-columns: repeat(4, 1fr); /* 4 Kolom */
   grid-gap: 15px;
   padding: 25px;
   border-radius: 30px;
   background-color: #e0e5ec;
+
   /* Efek Neumorphism (timbul halus) */
-  box-shadow: 9px 9px 16px rgb(163, 177, 198, 0.6), -9px -9px 16px rgba(255, 255, 255, 0.5);
+  box-shadow: 9px 9px 16px rgba(187, 198, 216, 0.6), -9px -9px 16px rgba(255, 255, 255, 0.5);
   max-width: 350px;
   width: 100%;
 }
