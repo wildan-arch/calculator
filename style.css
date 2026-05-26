@@ -5,28 +5,26 @@ body {
   align-items: center;
   min-height: 100vh;
   background-color: #e0e5ec;
-  /* Warna background halaman soft */
+  margin: 0; /* Menghilangkan margin bawaan browser */
 }
+
 .calculator {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 Kolom */
+  grid-template-columns: repeat(4, 1fr); /* 4 Kolom Utama */
   grid-gap: 15px;
   padding: 25px;
   border-radius: 30px;
   background-color: #e0e5ec;
-
-  /* Efek Neumorphism (timbul halus) */
-  box-shadow: 9px 9px 16px rgba(187, 198, 216, 0.6), -9px -9px 16px rgba(255, 255, 255, 0.5);
+  /* Efek Neumorphism Timbul */
+  box-shadow:
+    9px 9px 16px rgba(187, 198, 216, 0.6),
+    -9px -9px 16px rgba(255, 255, 255, 0.5);
   max-width: 350px;
   width: 100%;
 }
-#previous-operand {
-  font-size: 1rem;
-  color: #888;
-  min-height: 1.2rem;
-}
+
 .display {
-  grid-column: 1 / -1; /* Span ke seluruh lebar */
+  grid-column: 1 / -1; /* Mengambil seluruh 4 kolom */
   background-color: #e0e5ec;
   min-height: 100px;
   display: flex;
@@ -36,22 +34,27 @@ body {
   padding: 20px;
   word-wrap: break-word;
   word-break: break-all;
-  border-radius: 15px;
-  margin-bottom: 20px;
-  /* Efek cekung (Inset) untuk layar */
-  box-shadow: inset 6px 6px 10px 0 rgba(163, 177, 198, 0.7), inset -6px -6px 10px 0 rgba(255, 255, 255, 0.8);
+  border-radius: 20px;
+  margin-bottom: 10px;
+  /* Efek Cekung (Inset) untuk Layar */
+  box-shadow:
+    inset 6px 6px 10px 0 rgba(163, 177, 198, 0.7),
+    inset -6px -6px 10px 0 rgba(255, 255, 255, 0.8);
 }
+
+#previous-operand {
+  font-size: 1rem;
+  color: #888;
+  min-height: 1.2rem;
+  margin-bottom: 5px;
+}
+
 .current-operand {
   font-size: 2.5rem;
   font-weight: bold;
   color: #333;
 }
 
-.buttons {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-gap: 20px;
-}
 button {
   cursor: pointer;
   font-size: 1.25rem;
@@ -59,41 +62,68 @@ button {
   outline: none;
   background-color: #e0e5ec;
   padding: 20px;
-  border-radius: 50%; /* Tombol bulat */
+  border-radius: 50%; /* Tombol Bulat Sempurna */
   color: #555;
   font-weight: bold;
-  /* Efek timbul untuk tombol */
-  box-shadow: 6px 6px 10px 0 rgba(163, 177, 198, 0.7), -6px -6px 10px 0 rgba(255, 255, 255, 0.8);
-  transition: all 0.1s ease;
+  /* Efek Timbul untuk Tombol */
+  box-shadow:
+    6px 6px 10px 0 rgba(163, 177, 198, 0.7),
+    -6px -6px 10px 0 rgba(255, 255, 255, 0.8);
+  /* Gunakan aspek rasio agar tombol tetap bulat meskipun teksnya pendek/panjang */
+  aspect-ratio: 1 / 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.15s ease-in-out;
+}
+
+/* TAMBAHKAN BLOK INI PADA CSS ANDA */
+.buttons {
+  grid-column: 1 / -1; /* Pembungkus mengambil seluruh lebar .calculator */
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 Kolom di dalam pembungkus */
+  grid-gap: 15px; /* Menggunakan gap yang sama seperti .calculator */
+  width: 100%;
 }
 
 button:active {
-  /* Efek saat ditekan */
-  box-shadow: inset 4px 4px 8px 0 rgba(163, 177, 198, 0.7), inset -4px -4px 8px 0 rgba(255, 255, 255, 0.8);
-  transform: scale(0.98);
+  /* Efek saat ditekan (Mentok ke dalam) */
+  box-shadow:
+    inset 4px 4px 8px 0 rgba(163, 177, 198, 0.7),
+    inset -4px -4px 8px 0 rgba(255, 255, 255, 0.8);
+  transform: scale(0.95);
 }
+
 /* Warna Khusus Operator */
 .operator-btn {
-  color: #ff9500; /* Warna Oranye khas iOS */
+  color: #ff9500;
 }
-/* Warna Khusus Tombol Clear/Hapus */
+
+/* Warna Khusus Tombol Clear */
 .function-btn {
-  color: #ff3b30; /* Warna Merah soft */
+  color: #ff3b30;
 }
+
 /* Tombol Sama Dengan (=) */
 .equals-btn {
   background-color: #ff9500;
   color: white;
-  border-radius: 50%;
-  /* Shadow: Sisi terang (kuning) & Sisi gelap (oranye tua) */
-  box-shadow: -6px -6px 10px rgba(255, 200, 100, 0.5), /* Cahaya pantulan */ 6px 6px 10px rgba(200, 100, 0, 0.4); /* Bayangan oranye tua, BUKAN hitam */
+  box-shadow:
+    -4px -4px 10px rgba(255, 200, 100, 0.4),
+    6px 6px 10px rgba(200, 100, 0, 0.3);
 }
+
 .equals-btn:active {
   background-color: #e08400;
+  box-shadow:
+    inset 4px 4px 8px rgba(150, 75, 0, 0.6),
+    inset -4px -4px 8px rgba(255, 200, 100, 0.4);
 }
-/* Tombol yang butuh 2 kolom lebar */
+
+/* Tombol Lebar (Angka 0 atau AC jika ingin dilebarkan) */
 .span-two {
   grid-column: span 2;
+  border-radius: 50px; /* Bentuk Kapsul/Lonjong */
+  aspect-ratio: auto; /* Mematikan aspek rasio 1:1 khusus tombol lebar */
   width: 100%;
-  border-radius: 50px; /* Lonjong */
 }
